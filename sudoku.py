@@ -1,5 +1,7 @@
+from pprint import pprint
+
 SUDOKU1 = [
-    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [5, 3, 4, 6, 7, 8, 9, 0, 2],
     [6, 7, 2, 1, 9, 5, 3, 4, 8],
     [1, 9, 8, 3, 4, 2, 5, 6, 7],
     [8, 5, 9, 7, 6, 1, 4, 2, 3],
@@ -22,7 +24,7 @@ SUDOKU2 = [
     [2, 3, 9, 8, 4, 1, 5, 6, 7]
 ]
 
-def sudoku_is_solved(board: list[list[int]]):
+def sudoku_is_solved(board: list[list[int]]) -> bool:
     """
     Check if a sudoku has been solved.
     """
@@ -70,9 +72,11 @@ def is_valid(board: list[list[int]], i: int, j: int, a: int) -> bool:
     s = set()
     for r in range(3):
         for c in range(3):
-            if a == board[3*cstart + c][3*rstart + r]:
+            if a == board[3*rstart + r][3*cstart + c]:
                 return False
     return True
+
+print(is_valid(SUDOKU1, 7, 0, 1))
             
             
 
@@ -91,22 +95,12 @@ def solve_sudoku(sudoku: list[list[int]]):
                     sudoku[j][i] = a
                     solve_sudoku(sudoku)
                     sudoku[j][i] = 0
+            return
     if all_filled:
         solutions.append(sudoku.copy())
-        
-            
 
 print(sudoku_is_solved(SUDOKU1))
-print(sudoku_is_solved(SUDOKU2))
-
-
-def is_valid(board: list[list[int]], x: int, y: int) -> bool:
-    board[y][x]
-
-def find_sol(board):
-    for x in range(9):
-        for y in range(9):
-            if board[y][x] == 0:
-                continue
-            for j in range(1, 10):
-                print(j)
+solve_sudoku(SUDOKU1)
+for solution in solutions:
+    pprint(solution)
+        
