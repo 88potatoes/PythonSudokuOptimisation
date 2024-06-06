@@ -29,15 +29,14 @@ def sudoku_is_solved(board: list[list[int]]):
 
     # check rows
     for i in range(9):
-        if len(set(board[i])) != 9:
-            print("fail 1")
-            print(board[i])
+        row = set(board[i])
+        if len(row) != 9 or 0 in row:
             return False
     
     # check columns
     for i in range(9):
-        if len(set([board[x][i] for x in range(9)])) != 9:
-            print("fail 2")
+        col = set([board[x][i] for x in range(9)])
+        if len(col) != 9 or 0 in col:
             return False
         
     # check squares
@@ -47,8 +46,7 @@ def sudoku_is_solved(board: list[list[int]]):
             for k in range(3):
                 for l in range(3):
                     s.add(board[3*j+l][3*i+k])
-            if len(s) != 9:
-                print("fail 3")
+            if len(s) != 9 or 0 in s:
                 return False
     
     return True
