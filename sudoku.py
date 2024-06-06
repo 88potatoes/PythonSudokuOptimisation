@@ -14,7 +14,7 @@ SUDOKU2 = [
     [8, 2, 7, 1, 5, 4, 3, 9, 6],
     [9, 6, 5, 3, 2, 7, 1, 4, 8],
     [3, 4, 1, 6, 8, 9, 7, 5, 2],
-    [5, 9, 3, 4, 6, 8, 2, 7, 1],
+    [5, 9, 3, 4, 0, 8, 2, 0, 1],
     [4, 7, 2, 5, 1, 3, 6, 8, 9],
     [6, 1, 8, 9, 7, 2, 4, 3, 5],
     [7, 8, 6, 2, 3, 5, 9, 1, 4],
@@ -76,19 +76,24 @@ def is_valid(board: list[list[int]], i: int, j: int, a: int) -> bool:
             
             
 
-
+solutions = []
 def solve_sudoku(sudoku: list[list[int]]):
+    all_filled = True
     for i in range(9):
         for j in range(9):
             if sudoku[j][i] != 0:
                 continue
 
+            all_filled = False
+
             for a in range(1, 10):
                 if is_valid(sudoku, i, j, a):
                     sudoku[j][i] = a
-                    solve_sudoku(board)
+                    solve_sudoku(sudoku)
                     sudoku[j][i] = 0
-
+    if all_filled:
+        solutions.append(sudoku.copy())
+        
             
 
 print(sudoku_is_solved(SUDOKU1))
