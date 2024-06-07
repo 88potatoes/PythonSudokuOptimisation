@@ -97,7 +97,9 @@ def solve_sudoku(sudoku: list[list[int]]):
                     sudoku[j][i] = 0
             return
     if all_filled:
+        pprint(sudoku)
         solutions.append(sudoku.copy())
+        pprint(solutions)
 
 print(sudoku_is_solved(SUDOKU1))
 solve_sudoku(SUDOKU1)
