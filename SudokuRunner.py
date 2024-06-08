@@ -1,4 +1,5 @@
 from pprint import pprint
+import SudokuSolver
 import random
 import copy
 
@@ -44,66 +45,7 @@ class SudokuController:
     def __init__(self):
         self._solutions = []
         self._early_cutoff = 0
-
-    @staticmethod
-    def solve_sudoku(sudoku: list[list[int]], limit=0):
-        """
-        Solves sudoku
-        mutates self._solutions
-        but start and end is the same state
-        """
         
-        # self._solutions = []
-        # sudoku_copy = copy.deepcopy(sudoku)
-        # self._solve_sudoku_helper(sudoku_copy)
-        # # print("-")
-        # # pprint(self._solutions)
-        # # print("-")
-        # solutions = self._solutions.copy()
-        # pprint(solutions)
-        # self._solutions = []
-        # return solutions
-
-        solutions = []
-
-        def dfs(): # TODO can optimise by not looping through everything again
-            all_filled = True
-            for r in range(9):
-                for c in range(9):
-                    if sudoku[r][c] != 0:
-                        continue
-
-                    all_filled = False
-                    for a in range(1, 10):
-                        if SudokuController.number_is_valid(sudoku, r, c, a):
-                            sudoku[r][c] = a
-                            if dfs():
-                                return True
-                            sudoku[r][c] = 0
-                    return False
-            
-            if all_filled:
-                solutions.append(copy.deepcopy(sudoku))
-                if limit != 0 and len(solutions) >= limit:
-                    return True
-            
-            return False
-
-        dfs()
-        return solutions
-
-
-
-    @staticmethod
-    def generate_random_starting_sudoku() -> list[list[int]]:
-        sudoku = SudokuController.generate_random_solved_sudoku()
-
-        filled_squares = [(r, c) for r in range(9) for c in range(9)]
-        random.shuffle(filled_squares)
-        print(filled_squares)
-
-        # self.
-        # for r, c in filled_squares:
             
 
 

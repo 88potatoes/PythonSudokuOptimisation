@@ -1,4 +1,4 @@
-from SudokuHelpers import number_is_valid
+import SudokuHelpers
 
 def sudoku_is_solved(board: list[list[int]]) -> bool:
     """
@@ -36,7 +36,7 @@ def sudoku_state_is_valid(sudoku: list[list[int]]) -> bool:
                 continue
             val = sudoku[r][c]
             sudoku[r][c] = 0
-            if not number_is_valid(sudoku, r, c, val):
+            if not SudokuHelpers.number_is_valid(sudoku, r, c, val):
                 return False
             sudoku[r][c] = val
     
