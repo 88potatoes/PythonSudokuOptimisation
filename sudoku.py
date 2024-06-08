@@ -45,10 +45,10 @@ class SudokuController:
         self._solutions = []
         self._early_cutoff = 0
 
-    def sudoku_is_solved(self, board: list[list[int]]) -> bool:
+    @staticmethod
+    def sudoku_is_solved(board: list[list[int]]) -> bool:
         """
         Check if a sudoku has been solved.
-        PURE
         """
 
         # check rows
@@ -75,10 +75,10 @@ class SudokuController:
         
         return True
 
-    def number_is_valid(self, board: list[list[int]], r: int, c: int, a: int) -> bool:
+    @staticmethod
+    def number_is_valid(board: list[list[int]], r: int, c: int, a: int) -> bool:
         """
         Check if a particular number at a certain square is valid.
-        PURE
         """
 
         # check the row
@@ -144,20 +144,33 @@ class SudokuController:
 
         return False
     
-    def get_random_solved_sudoku():
+    @staticmethod
+    def generate_random_solved_sudoku():
         sudoku = [[0 for _ in range(9)] for _ in range(9)]
         def dfs(board: list[list[int]]):
+            all_filled = True
             for r in range(9):
                 for c in range(9):
-                    candidates = [x for x in range(9)]
+                    if board[r][c] != 0:
+                        continue
+                    all_filled = False
+
+                    candidates = [x for x in range(1, 10)]
                     random.shuffle(candidates)
-
                     for a in candidates:
-                        pass # TODO
+                        if SudokuController.number_is_valid(board, r, c, a):
+                            board[r][c] = a
+                            if dfs(board):
+                                return True
+                            board[r][c] = 0
+                    return False
 
-    def _get_random_solved_sudoku(sudoku: list[list[int]]):
-
-
+            if all_filled:
+                return True
+            return False
+        
+        dfs(sudoku)
+        return sudoku
 
 
 
@@ -231,7 +244,7 @@ class SudokuController:
 sudokuController = SudokuController()
 # pprint(sudokuController.solve_sudoku(SUDOKU2))
 # pprint(sudokuController.sudoku_is_valid(SUDOKU2))
-pprint(sudokuController.generate_sudoku())
+pprint(SudokuController.generate_random_solved_sudoku())
 
 
     
