@@ -1,5 +1,6 @@
 from pprint import pprint
 import random
+import copy
 
 SUDOKU1 = [
     [5, 3, 4, 6, 7, 8, 9, 0, 2],
@@ -14,28 +15,29 @@ SUDOKU1 = [
 ]
 
 SUDOKU2 = [
-    [8, 2, 7, 1, 5, 4, 3, 9, 6],
-    [9, 6, 5, 3, 2, 7, 1, 4, 8],
-    [3, 4, 1, 6, 8, 9, 7, 5, 2],
-    [5, 9, 3, 4, 0, 8, 2, 0, 1],
-    [4, 7, 2, 5, 1, 3, 6, 8, 9],
-    [6, 1, 8, 9, 7, 2, 4, 3, 5],
-    [7, 8, 6, 2, 3, 5, 9, 1, 4],
-    [1, 5, 4, 7, 9, 6, 8, 2, 3],
-    [2, 3, 9, 8, 4, 1, 5, 6, 7]
+    [8, 0, 7, 0, 0, 4, 3, 0, 0],
+    [9, 6, 0, 0, 2, 7, 0, 0, 8],
+    [3, 0, 1, 6, 8, 0, 7, 5, 0],
+    [5, 9, 0, 0, 0, 0, 2, 0, 1],
+    [0, 7, 0, 0, 1, 3, 6, 8, 9],
+    [6, 1, 8, 0, 0, 0, 4, 3, 0],
+    [0, 0, 6, 0, 0, 0, 9, 0, 0],
+    [0, 5, 4, 0, 9, 6, 0, 2, 3],
+    [2, 0, 9, 0, 0, 1, 5, 0, 0]
 ]
 
 SUDOKU3 = [
-    [0, 0, 0, 0, 0, 4, 0, 7, 0],
-    [0, 0, 0, 0, 3, 0, 5, 0, 0],
-    [0, 4, 0, 2, 0, 8, 0, 6, 0],
-    [0, 0, 0, 0, 8, 0, 0, 0, 0],
-    [0, 2, 0, 0, 7, 1, 3, 0, 6],
-    [0, 6, 0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 2, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 7, 0, 0, 2, 9, 0, 0]
+    [0, 0, 2, 1, 5, 3, 0, 0, 4],
+    [0, 0, 1, 0, 0, 4, 2, 0, 6],
+    [7, 4, 6, 2, 0, 0, 3, 0, 5],
+    [2, 0, 4, 0, 0, 1, 0, 5, 3],
+    [0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [6, 5, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 2, 5, 0, 3, 0],
+    [0, 2, 5, 0, 3, 0, 1, 0, 7],
+    [0, 0, 0, 0, 0, 0, 0, 2, 0]
 ]
+
 
 class SudokuController:
 
@@ -103,18 +105,21 @@ class SudokuController:
         but start and end is the same state
         """
         self._solutions = []
-        self._solve_sudoku_helper(sudoku)
+        sudoku_copy = copy.deepcopy(sudoku)
+        self._solve_sudoku_helper(sudoku_copy)
         # print("-")
         # pprint(self._solutions)
         # print("-")
         solutions = self._solutions.copy()
+        pprint(solutions)
         self._solutions = []
         return solutions
     
     def _solve_sudoku_helper(self, sudoku: list[list[int]]):
-        assert self._early_cutoff >= 0
+        print("-", end="")
+        # assert self._early_cutoff >= 0
+        # pprint(sudoku)
         all_filled = True
-
         for r in range(9):
             for c in range(9):
                 if sudoku[r][c] != 0:
@@ -125,6 +130,7 @@ class SudokuController:
                     if self.number_is_valid(sudoku, r, c, a):
                         sudoku[r][c] = a
                         if self._solve_sudoku_helper(sudoku):
+                        # self._solve_sudoku_helper(sudoku)
                             return True
                         sudoku[r][c] = 0
                 return False
@@ -138,6 +144,22 @@ class SudokuController:
 
         return False
     
+    def get_random_solved_sudoku():
+        sudoku = [[0 for _ in range(9)] for _ in range(9)]
+        def dfs(board: list[list[int]]):
+            for r in range(9):
+                for c in range(9):
+                    candidates = [x for x in range(9)]
+                    random.shuffle(candidates)
+
+                    for a in candidates:
+                        pass # TODO
+
+    def _get_random_solved_sudoku(sudoku: list[list[int]]):
+
+
+
+
 
     def generate_sudoku(self) -> list[list[int]]:
         sudoku = [[0 for _ in range(9)] for _ in range(9)]
@@ -147,51 +169,68 @@ class SudokuController:
             for c in range(9):
                 if sudoku[r][c] == 0:
                     empty_squares.add((r, c))
-        random_points = random.sample(list(empty_squares), 20)
 
         # filling with random points initially
-        for point in random_points:
-            if point not in empty_squares:
-                continue
+        # nsols = 
+        # for point in random_points:
+        #     print(point)
+        #     if point not in empty_squares:
+        #         continue
 
-            empty_squares.remove(point)
-            candidates = [x for x in range(1, 10)]
-            random.shuffle(candidates)
-            for a in candidates:
-                if self.number_is_valid(sudoku, point[0], point[1], a):
-                    sudoku[point[0]][point[1]] = a
-                    break
-        
-        # pprint(sudoku)
-        counts = 0
-        for r in range(9):
-            for c in range(9):
-                if sudoku[r][c] != 0:
-                    counts += 1
-        # print(counts)
-
-        # filling with random points until unique solution
-        self._early_cutoff = 2
-        nsols = len(self.solve_sudoku(sudoku))
-        # print(nsols)
-        while nsols >= 2:
-            pprint(sudoku)
-            r, c = random.sample(list(empty_squares), 1)[0]
-            empty_squares.remove(point)
-            for a in range(1, 10):
-                if self.number_is_valid(sudoku, r, c, a):
-                    sudoku[r][c] = a
-                    break
-                nsols = len(self.solve_sudoku(sudoku))
-                # print(nsols)
+        #     empty_squares.remove(point)
+        #     candidates = [x for x in range(1, 10)]
+        #     random.shuffle(candidates)
+        #     for a in candidates:
+        #         if self.number_is_valid(sudoku, point[0], point[1], a):
+        #             sudoku[point[0]][point[1]] = a
+        #             break
+        self._early_cutoff = 1
+        solution_sudoku = self.solve_sudoku(sudoku)[0]
         self._early_cutoff = 0
         
-        if nsols == 0:
-            return None
+        pprint(solution_sudoku)
+
+        # filling with random points until unique solution
+        # self._early_cutoff = 2
+        # nsols = len(self.solve_sudoku(sudoku))
+        # # print("solved")
+        # # pprint(sudoku)
+        # # print(nsols)
+        # while nsols >= 2:
+        #     pprint(sudoku)
+        #     r, c = random.sample(list(empty_squares), 1)[0]
+        #     empty_squares.remove((r, c))
+        #     for a in range(1, 10):
+        #         if not self.number_is_valid(sudoku, r, c, a):
+        #             continue
+
+        #         sudoku[r][c] = a
+        #         break
+        #     nsols = len(self.solve_sudoku(sudoku))
+        # pprint(sudoku)
+        # self._early_cutoff = 0
+        
+        # if nsols == 0:
+        #     return None
+        # return sudoku
         return sudoku
+
+    def sudoku_is_valid(self, sudoku: list[list[int]]) -> bool:
+        for r in range(9):
+            for c in range(9):
+                if sudoku[r][c] == 0:
+                    continue
+                val = sudoku[r][c]
+                sudoku[r][c] = 0
+                if not self.number_is_valid(sudoku, r, c, val):
+                    return False
+                sudoku[r][c] = val
+        
+        return True
 
 sudokuController = SudokuController()
 # pprint(sudokuController.solve_sudoku(SUDOKU2))
+# pprint(sudokuController.sudoku_is_valid(SUDOKU2))
 pprint(sudokuController.generate_sudoku())
 
 
