@@ -104,7 +104,10 @@ class SudokuController:
         """
         self._solutions = []
         self._solve_sudoku_helper(sudoku)
-        solutions = self._solutions
+        # print("-")
+        # pprint(self._solutions)
+        # print("-")
+        solutions = self._solutions.copy()
         self._solutions = []
         return solutions
     
@@ -121,7 +124,7 @@ class SudokuController:
                 for a in range(1, 10):
                     if self.number_is_valid(sudoku, r, c, a):
                         sudoku[r][c] = a
-                        if self.solve_sudoku(sudoku):
+                        if self._solve_sudoku_helper(sudoku):
                             return True
                         sudoku[r][c] = 0
                 return False
@@ -159,18 +162,18 @@ class SudokuController:
                     sudoku[point[0]][point[1]] = a
                     break
         
-        pprint(sudoku)
+        # pprint(sudoku)
         counts = 0
         for r in range(9):
             for c in range(9):
                 if sudoku[r][c] != 0:
                     counts += 1
-        print(counts)
+        # print(counts)
 
         # filling with random points until unique solution
         self._early_cutoff = 2
         nsols = len(self.solve_sudoku(sudoku))
-        print(nsols)
+        # print(nsols)
         while nsols >= 2:
             pprint(sudoku)
             r, c = random.sample(list(empty_squares), 1)[0]
@@ -180,7 +183,7 @@ class SudokuController:
                     sudoku[r][c] = a
                     break
                 nsols = len(self.solve_sudoku(sudoku))
-                print(nsols)
+                # print(nsols)
         self._early_cutoff = 0
         
         if nsols == 0:
@@ -188,8 +191,8 @@ class SudokuController:
         return sudoku
 
 sudokuController = SudokuController()
-pprint(sudokuController.solve_sudoku(SUDOKU2))
-# pprint(sudokuController.generate_sudoku())
+# pprint(sudokuController.solve_sudoku(SUDOKU2))
+pprint(sudokuController.generate_sudoku())
 
 
     
