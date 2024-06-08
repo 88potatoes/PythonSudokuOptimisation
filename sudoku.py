@@ -146,8 +146,8 @@ class SudokuController:
     
     @staticmethod
     def generate_random_solved_sudoku():
-        sudoku = [[0 for _ in range(9)] for _ in range(9)]
-        def dfs(board: list[list[int]]):
+        board = [[0 for _ in range(9)] for _ in range(9)]
+        def dfs():
             all_filled = True
             for r in range(9):
                 for c in range(9):
@@ -160,7 +160,7 @@ class SudokuController:
                     for a in candidates:
                         if SudokuController.number_is_valid(board, r, c, a):
                             board[r][c] = a
-                            if dfs(board):
+                            if dfs():
                                 return True
                             board[r][c] = 0
                     return False
@@ -169,12 +169,12 @@ class SudokuController:
                 return True
             return False
         
-        dfs(sudoku)
-        return sudoku
+        dfs()
+        return board
 
 
 
-    def generate_sudoku(self) -> list[list[int]]:
+    def generate_random_starting_sudoku(self) -> list[list[int]]:
         sudoku = [[0 for _ in range(9)] for _ in range(9)]
 
         empty_squares = set()
