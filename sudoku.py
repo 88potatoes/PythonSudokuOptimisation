@@ -25,111 +25,137 @@ SUDOKU2 = [
     [2, 3, 9, 8, 4, 1, 5, 6, 7]
 ]
 
-def sudoku_is_solved(board: list[list[int]]) -> bool:
-    """
-    Check if a sudoku has been solved.
-    """
+class SudokuController:
 
-    # check rows
-    for i in range(9):
-        row = set(board[i])
-        if len(row) != 9 or 0 in row:
-            return False
-    
-    # check columns
-    for i in range(9):
-        col = set([board[x][i] for x in range(9)])
-        if len(col) != 9 or 0 in col:
+    def __init__(self):
+        self._solutions = []
+
+    def sudoku_is_solved(self, board: list[list[int]]) -> bool:
+        """
+        Check if a sudoku has been solved.
+        """
+
+        # check rows
+        for i in range(9):
+            row = set(board[i])
+            if len(row) != 9 or 0 in row:
+                return False
+        
+        # check columns
+        for i in range(9):
+            col = set([board[x][i] for x in range(9)])
+            if len(col) != 9 or 0 in col:
+                return False
+            
+        # check squares
+        for i in range(3):
+            for j in range(3):
+                s = set()
+                for k in range(3):
+                    for l in range(3):
+                        s.add(board[3*j+l][3*i+k])
+                if len(s) != 9 or 0 in s:
+                    return False
+        
+        return True
+
+    def number_is_valid(self, board: list[list[int]], i: int, j: int, a: int) -> bool:
+        """
+        Check if a particular number at a certain square is valid.
+        """
+
+        # check the row
+        if a in set(board[j]):
             return False
         
-    # check squares
-    for i in range(3):
-        for j in range(3):
-            s = set()
-            for k in range(3):
-                for l in range(3):
-                    s.add(board[3*j+l][3*i+k])
-            if len(s) != 9 or 0 in s:
-                return False
+        # check the column
+        if a in set([board[y][i] for y in range(9)]):
+            return False
+        
+        # check the squares
+        rstart = j // 3
+        cstart = i // 3
+        s = set()
+        for r in range(3):
+            for c in range(3):
+                if a == board[3*rstart + r][3*cstart + c]:
+                    return False
+        return True
+
+    def solve_sudoku(self, sudoku: list[list[int]]):
+        self._solutions = []
+        self._solve_sudoku_helper(sudoku)
+        return self._solutions
     
-    return True
+    def _solve_sudoku_helper(self, sudoku: list[list[int]], early_cutoff=0):
+        assert early_cutoff >= 0
 
-def is_valid(board: list[list[int]], i: int, j: int, a: int) -> bool:
-    """
-    Check if a particular number at a certain square is valid.
-    """
+        all_filled = True
+        for i in range(9):
+            for j in range(9):
+                if sudoku[j][i] != 0:
+                    continue
 
-    # check the row
-    if a in set(board[j]):
+                all_filled = False
+                for a in range(1, 10):
+                    if self.number_is_valid(sudoku, i, j, a):
+                        sudoku[j][i] = a
+                        if self.solve_sudoku(sudoku):
+                            return True
+                        sudoku[j][i] = 0
+                return False
+            
+        if all_filled:
+            s = tuple(tuple(row) for row in sudoku)
+            self._solutions.append(s)
+
+        if early_cutoff > 0 and self._solutions == early_cutoff:
+            return True
+
         return False
     
-    # check the column
-    if a in set([board[y][i] for y in range(9)]):
-        return False
-    
-    # check the squares
-    rstart = j // 3
-    cstart = i // 3
-    s = set()
-    for r in range(3):
-        for c in range(3):
-            if a == board[3*rstart + r][3*cstart + c]:
-                return False
-    return True
 
-print(is_valid(SUDOKU1, 7, 0, 1))
-            
-            
+    def generate_sudoku(self) -> list[list[int]]:
+        sudoku = [[0 for _ in range(9)] for _ in range(9)]
 
-solutions = []
-def solve_sudoku(sudoku: list[list[int]]):
-    all_filled = True
-    for i in range(9):
-        for j in range(9):
-            if sudoku[j][i] != 0:
+        empty_squares = set()
+        for r in range(9):
+            for c in range(9):
+                if sudoku[r][c] == 0:
+                    empty_squares.add((r, c))
+        random_points = random.sample(list(empty_squares), 16)
+
+        # filling with random points initially
+        for point in random_points:
+            if point not in empty_squares:
                 continue
 
-            all_filled = False
-
+            empty_squares.remove(point)
             for a in range(1, 10):
-                if is_valid(sudoku, i, j, a):
-                    sudoku[j][i] = a
-                    solve_sudoku(sudoku)
-                    sudoku[j][i] = 0
-            return
-    if all_filled:
-        s = tuple(tuple(row) for row in sudoku)
-        solutions.append(s)
-    if len(solutions) >= 2:
-        return
+                if self.number_is_valid(sudoku, point[0], point[1], a):
+                    sudoku[point[0]][point[1]] = a
+                    break
+        
+        pprint(sudoku)
+        # filling with random points until unique solution
+        nsols = len(self.solve_sudoku(sudoku))
+        while nsols >= 2:
+            pprint(sudoku)
+            r, c = random.sample(list(empty_squares), 1)[0]
+            empty_squares.remove(point)
+            for a in range(1, 10):
+                if self.number_is_valid(sudoku, r, c, a):
+                    sudoku[r][c] = a
+                    break
+                nsols = len(self.solve_sudoku(sudoku))
+        
+        if nsols == 0:
+            return None
+        return sudoku
 
-print(sudoku_is_solved(SUDOKU1))
-solve_sudoku(SUDOKU1)
-pprint(solutions)
+sudokuController = SudokuController()
+print(sudokuController.generate_sudoku())
 
-def generate_sudoku(solve_sudoku) -> list[list[int]]:
-    sudoku = [[0 for _ in range(9)] for _ in range(9)]
-
-    empty_squares = set()
-    for r in range(9):
-        for c in range(9):
-            if sudoku[r][c] == 0:
-                empty_squares.add((r, c))
-    random_points = random.sample(empty_squares, 17)
-
-    # filling with random points initially
-    for point in random_points:
-        if point not in empty_squares:
-            continue
-
-        empty_squares.remove(point)
-        for a in range(1, 10):
-            if is_valid(sudoku, point[0], point[1], a):
-                sudoku[point[0]][point[1]] = a
-                break
-
-    # filling with random points until unique solution
-    solve_sudoku()
 
     
         
