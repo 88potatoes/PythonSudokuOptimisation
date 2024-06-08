@@ -1,4 +1,5 @@
 from pprint import pprint
+import random
 
 SUDOKU1 = [
     [5, 3, 4, 6, 7, 8, 9, 0, 2],
@@ -97,12 +98,40 @@ def solve_sudoku(sudoku: list[list[int]]):
                     sudoku[j][i] = 0
             return
     if all_filled:
-        pprint(sudoku)
-        solutions.append(sudoku.copy())
-        pprint(solutions)
+        s = tuple(tuple(row) for row in sudoku)
+        solutions.append(s)
+    if len(solutions) >= 2:
+        return
 
 print(sudoku_is_solved(SUDOKU1))
 solve_sudoku(SUDOKU1)
-for solution in solutions:
-    pprint(solution)
+pprint(solutions)
+
+def generate_sudoku(solve_sudoku) -> list[list[int]]:
+    sudoku = [[0 for _ in range(9)] for _ in range(9)]
+
+    empty_squares = set()
+    for r in range(9):
+        for c in range(9):
+            if sudoku[r][c] == 0:
+                empty_squares.add((r, c))
+    random_points = random.sample(empty_squares, 17)
+
+    # filling with random points initially
+    for point in random_points:
+        if point not in empty_squares:
+            continue
+
+        empty_squares.remove(point)
+        for a in range(1, 10):
+            if is_valid(sudoku, point[0], point[1], a):
+                sudoku[point[0]][point[1]] = a
+                break
+
+    # filling with random points until unique solution
+    solve_sudoku()
+
+    
+        
+    
         
