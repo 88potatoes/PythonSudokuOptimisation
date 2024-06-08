@@ -46,142 +46,66 @@ class SudokuController:
         self._early_cutoff = 0
 
     @staticmethod
-    def sudoku_is_solved(board: list[list[int]]) -> bool:
-        """
-        Check if a sudoku has been solved.
-        """
-
-        # check rows
-        for i in range(9):
-            row = set(board[i])
-            if len(row) != 9 or 0 in row:
-                return False
-        
-        # check columns
-        for i in range(9):
-            col = set([board[x][i] for x in range(9)])
-            if len(col) != 9 or 0 in col:
-                return False
-            
-        # check squares
-        for i in range(3):
-            for j in range(3):
-                s = set()
-                for k in range(3):
-                    for l in range(3):
-                        s.add(board[3*j+l][3*i+k])
-                if len(s) != 9 or 0 in s:
-                    return False
-        
-        return True
-
-    @staticmethod
-    def number_is_valid(board: list[list[int]], r: int, c: int, a: int) -> bool:
-        """
-        Check if a particular number at a certain square is valid.
-        """
-
-        # check the row
-        if a in set(board[r]):
-            return False
-        
-        # check the column
-        if a in set([board[y][c] for y in range(9)]):
-            return False
-        
-        # check the squares
-        rstart = r // 3
-        cstart = c // 3
-        for dr in range(3):
-            for dc in range(3):
-                if a == board[3*rstart + dr][3*cstart + dc]:
-                    return False
-        return True
-
-    def solve_sudoku(self, sudoku: list[list[int]]):
+    def solve_sudoku(sudoku: list[list[int]], limit=0):
         """
         Solves sudoku
         mutates self._solutions
         but start and end is the same state
         """
-        self._solutions = []
-        sudoku_copy = copy.deepcopy(sudoku)
-        self._solve_sudoku_helper(sudoku_copy)
-        # print("-")
-        # pprint(self._solutions)
-        # print("-")
-        solutions = self._solutions.copy()
-        pprint(solutions)
-        self._solutions = []
-        return solutions
-    
-    def _solve_sudoku_helper(self, sudoku: list[list[int]]):
-        print("-", end="")
-        # assert self._early_cutoff >= 0
-        # pprint(sudoku)
-        all_filled = True
-        for r in range(9):
-            for c in range(9):
-                if sudoku[r][c] != 0:
-                    continue
+        
+        # self._solutions = []
+        # sudoku_copy = copy.deepcopy(sudoku)
+        # self._solve_sudoku_helper(sudoku_copy)
+        # # print("-")
+        # # pprint(self._solutions)
+        # # print("-")
+        # solutions = self._solutions.copy()
+        # pprint(solutions)
+        # self._solutions = []
+        # return solutions
 
-                all_filled = False
-                for a in range(1, 10):
-                    if self.number_is_valid(sudoku, r, c, a):
-                        sudoku[r][c] = a
-                        if self._solve_sudoku_helper(sudoku):
-                        # self._solve_sudoku_helper(sudoku)
-                            return True
-                        sudoku[r][c] = 0
-                return False
-            
-        if all_filled:
-            s = tuple(tuple(row) for row in sudoku)
-            self._solutions.append(s)
+        solutions = []
 
-        if self._early_cutoff > 0 and len(self._solutions) >= self._early_cutoff:
-            return True
-
-        return False
-    
-    @staticmethod
-    def generate_random_solved_sudoku():
-        board = [[0 for _ in range(9)] for _ in range(9)]
-        def dfs():
+        def dfs(): # TODO can optimise by not looping through everything again
             all_filled = True
             for r in range(9):
                 for c in range(9):
-                    if board[r][c] != 0:
+                    if sudoku[r][c] != 0:
                         continue
-                    all_filled = False
 
-                    candidates = [x for x in range(1, 10)]
-                    random.shuffle(candidates)
-                    for a in candidates:
-                        if SudokuController.number_is_valid(board, r, c, a):
-                            board[r][c] = a
+                    all_filled = False
+                    for a in range(1, 10):
+                        if SudokuController.number_is_valid(sudoku, r, c, a):
+                            sudoku[r][c] = a
                             if dfs():
                                 return True
-                            board[r][c] = 0
+                            sudoku[r][c] = 0
                     return False
-
+            
             if all_filled:
-                return True
+                solutions.append(copy.deepcopy(sudoku))
+                if limit != 0 and len(solutions) >= limit:
+                    return True
+            
             return False
-        
+
         dfs()
-        return board
+        return solutions
 
 
 
-    def generate_random_starting_sudoku(self) -> list[list[int]]:
-        sudoku = [[0 for _ in range(9)] for _ in range(9)]
+    @staticmethod
+    def generate_random_starting_sudoku() -> list[list[int]]:
+        sudoku = SudokuController.generate_random_solved_sudoku()
 
-        empty_squares = set()
-        for r in range(9):
-            for c in range(9):
-                if sudoku[r][c] == 0:
-                    empty_squares.add((r, c))
+        filled_squares = [(r, c) for r in range(9) for c in range(9)]
+        random.shuffle(filled_squares)
+        print(filled_squares)
+
+        # self.
+        # for r, c in filled_squares:
+            
+
 
         # filling with random points initially
         # nsols = 
@@ -197,11 +121,11 @@ class SudokuController:
         #         if self.number_is_valid(sudoku, point[0], point[1], a):
         #             sudoku[point[0]][point[1]] = a
         #             break
-        self._early_cutoff = 1
-        solution_sudoku = self.solve_sudoku(sudoku)[0]
-        self._early_cutoff = 0
+        # self._early_cutoff = 1
+        # solution_sudoku = self.solve_sudoku(sudoku)[0]
+        # self._early_cutoff = 0
         
-        pprint(solution_sudoku)
+        # pprint(solution_sudoku)
 
         # filling with random points until unique solution
         # self._early_cutoff = 2
@@ -228,23 +152,10 @@ class SudokuController:
         # return sudoku
         return sudoku
 
-    def sudoku_is_valid(self, sudoku: list[list[int]]) -> bool:
-        for r in range(9):
-            for c in range(9):
-                if sudoku[r][c] == 0:
-                    continue
-                val = sudoku[r][c]
-                sudoku[r][c] = 0
-                if not self.number_is_valid(sudoku, r, c, val):
-                    return False
-                sudoku[r][c] = val
-        
-        return True
-
-sudokuController = SudokuController()
-# pprint(sudokuController.solve_sudoku(SUDOKU2))
+pprint(SudokuController.solve_sudoku(SUDOKU2))
 # pprint(sudokuController.sudoku_is_valid(SUDOKU2))
-pprint(SudokuController.generate_random_solved_sudoku())
+# pprint(SudokuController.generate_random_solved_sudoku())
+# pprint(SudokuController.generate_random_starting_sudoku())
 
 
     
