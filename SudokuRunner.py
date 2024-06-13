@@ -3,6 +3,7 @@ from SudokuChecker import SudokuChecker
 from SudokuGenerator import SudokuGenerator
 from SudokuSolver import SudokuSolver
 from SudokuStrategies import basic_backtracking
+import time
 
 SUDOKU1 = [
     [5, 3, 4, 6, 7, 8, 9, 0, 2],
@@ -57,9 +58,12 @@ if __name__ == "__main__":
     # print(zeros)
 
     # get a solution to the sudoku
+    start_time = time.time()
     solved_sudoku = solver.solve_sudoku(problem_sudoku)
+    end_time = time.time()
     print("Solution:")
     pprint(solved_sudoku)
+    print(f"Time elapsed: {end_time - start_time}s")
 
     # verify the sudoku is a solution
     verified, status = checker.verify_solution(problem_sudoku, solved_sudoku)
