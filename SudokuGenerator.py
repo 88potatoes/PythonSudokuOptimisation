@@ -10,7 +10,6 @@ class SudokuGenerator:
     def __init__(self):
         self.sudokuSolver = SudokuSolver()
 
-    @staticmethod
     def generate_random_solved_sudoku(self):
         board = [[0 for _ in range(9)] for _ in range(9)]
 
@@ -63,7 +62,6 @@ class SudokuGenerator:
     def gen_many_starting_sudokus(self, n: int) -> list[list[list[int]]]:
         return [self.generate_random_starting_sudoku() for _ in range(n)]
 
-    @staticmethod
     def _solve_sudoku(self, sudoku: list[list[int]], sol_limit=0):
         """
         Solves sudoku.

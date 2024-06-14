@@ -47,9 +47,10 @@ if __name__ == "__main__":
     solver = SudokuSolver(basic_backtracking)
 
     # get a problem sudoku
-    problem_sudoku = generator.generate_random_starting_sudoku()
-    print("Problem:")
-    pprint(problem_sudoku)
+    # problem_sudoku = generator.generate_random_starting_sudoku()
+    # pprint(problem_sudoku)
+    # print("Problem:")
+    problems = generator.gen_many_starting_sudokus(100)
     # zeros = 0
     # for r in range(9):
     #     for c in range(9):
@@ -59,19 +60,19 @@ if __name__ == "__main__":
 
     # get a solution to the sudoku
     start_time = time.time()
-    solved_sudoku = solver.solve_sudoku(problem_sudoku)
+    solutions = solver.solve_many_sudokus(problems)
     end_time = time.time()
-    print("Solution:")
-    pprint(solved_sudoku)
-    print(f"Time elapsed: {end_time - start_time}s")
+    # print("Solution")
+    # pprint(solved_sudoku)
 
     # verify the sudoku is a solution
-    verified, status = checker.verify_solution(problem_sudoku, solved_sudoku)
-    if not verified:
-        print(status)
-    else:
-        print("Verified")
-        
-        
+    # verified, status = checker.verify_solution(problem_sudoku, solved_sudoku)
+    results = checker.verify_many_solutions(problems, solutions)
+
+    for verified, msg in results:
+        if not verified:
+            print(msg)
+    print(f"Time elapsed: {end_time - start_time}s")
+
     
         

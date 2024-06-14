@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="workspace.xml">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="reconfiguring so everything works in pycharm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuChecker.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuChecker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuGenerator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuHelpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuHelpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuSolver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuStrategies.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuStrategies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuRunner.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +30,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.SudokuRunner.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/multisudoku",
     "last_opened_file_path": "/Users/ericlang/Documents/codestuff/pysudoku",
@@ -63,11 +61,20 @@
       <option name="project" value="LOCAL" />
       <updated>1718362951429</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="reconfiguring so everything works in pycharm">
+      <option name="closed" value="true" />
+      <created>1718363940039</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718363940039</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml" />
+    <MESSAGE value="reconfiguring so everything works in pycharm" />
+    <option name="LAST_COMMIT_MESSAGE" value="reconfiguring so everything works in pycharm" />
   </component>
 </project>

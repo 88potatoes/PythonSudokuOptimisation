@@ -3,7 +3,6 @@ import SudokuHelpers
 
 class SudokuChecker:
 
-    @staticmethod
     def verify_solution(self, problem: list[list[int]], solution: list[list[int]]) -> tuple[bool, str]:
         """
         Check if a sudoku has been solved.
@@ -40,7 +39,7 @@ class SudokuChecker:
 
         return True, ""
 
-    def sudoku_state_is_valid(self, sudoku: list[list[int]]) -> bool:
+    def sudoku_state_is_valid(sudoku: list[list[int]]) -> bool:
         for r in range(9):
             for c in range(9):
                 if sudoku[r][c] == 0:
@@ -52,3 +51,14 @@ class SudokuChecker:
                 sudoku[r][c] = val
 
         return True
+
+    def verify_many_solutions(self, problems: list[list[list[int]]], solutions: list[list[list[int]]]) -> list[
+        tuple[bool, str]]:
+        assert len(problems) == len(solutions)
+        n = len(problems)
+
+        results = []
+        for i in range(n):
+            results.append(self.verify_solution(problems[i], solutions[i]))
+
+        return results
