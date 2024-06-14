@@ -1,17 +1,19 @@
+import copy
 import random
 import SudokuHelpers
-from pprint import pprint
-from SudokuSolver import SudokuSolver
-import copy
 from SudokuHelpers import number_is_valid
-    
+from SudokuSolver import SudokuSolver
+
+
 class SudokuGenerator:
 
     def __init__(self):
         self.sudokuSolver = SudokuSolver()
 
+    @staticmethod
     def generate_random_solved_sudoku(self):
         board = [[0 for _ in range(9)] for _ in range(9)]
+
         def dfs():
             all_filled = True
             for r in range(9):
@@ -33,7 +35,7 @@ class SudokuGenerator:
             if all_filled:
                 return True
             return False
-        
+
         dfs()
         return board
 
@@ -57,7 +59,11 @@ class SudokuGenerator:
             break
 
         return sudoku
-    
+
+    def gen_many_starting_sudokus(self, n: int) -> list[list[list[int]]]:
+        return [self.generate_random_starting_sudoku() for _ in range(n)]
+
+    @staticmethod
     def _solve_sudoku(self, sudoku: list[list[int]], sol_limit=0):
         """
         Solves sudoku.
@@ -66,7 +72,7 @@ class SudokuGenerator:
 
         solutions = []
 
-        def dfs(): # TODO can optimise by not looping through everything again
+        def dfs():  # TODO can optimise by not looping through everything again
             all_filled = True
             for r in range(9):
                 for c in range(9):
@@ -81,14 +87,13 @@ class SudokuGenerator:
                                 return True
                             sudokucopy[r][c] = 0
                     return False
-            
+
             if all_filled:
                 solutions.append(copy.deepcopy(sudokucopy))
                 if sol_limit != 0 and len(solutions) >= sol_limit:
                     return True
-            
+
             return False
 
         dfs()
         return solutions
-

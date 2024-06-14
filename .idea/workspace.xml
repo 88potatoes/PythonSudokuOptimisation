@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="">
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="workspace.xml">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuChecker.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuChecker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuHelpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuHelpers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuSolver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuStrategies.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuStrategies.py" afterDir="false" />
     </list>
@@ -17,9 +21,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2hrpWMN0AZEdj88a1wKZJAnnGN0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,7 +36,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/multisudoku",
     "last_opened_file_path": "/Users/ericlang/Documents/codestuff/pysudoku",
-    "settings.editor.selected.configurable": "settings.sync"
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -51,6 +55,19 @@
       <option name="presentableId" value="Default" />
       <updated>1718362080925</updated>
     </task>
+    <task id="LOCAL-00001" summary="workspace.xml">
+      <option name="closed" value="true" />
+      <created>1718362951429</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718362951429</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml" />
   </component>
 </project>

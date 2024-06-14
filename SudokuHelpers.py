@@ -12,11 +12,11 @@ def number_is_valid(board: list[list[int]], r: int, c: int, a: int) -> bool:
         return False
     
     # check the squares
-    rstart = r // 3
-    cstart = c // 3
+    r_start = r // 3
+    c_start = c // 3
     for dr in range(3):
         for dc in range(3):
-            if a == board[3*rstart + dr][3*cstart + dc]:
+            if a == board[3*r_start + dr][3*c_start + dc]:
                 return False
     return True
 
