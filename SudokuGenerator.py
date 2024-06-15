@@ -1,4 +1,5 @@
 import copy
+import json
 import random
 import SudokuHelpers
 from SudokuHelpers import number_is_valid
@@ -44,7 +45,9 @@ class SudokuGenerator:
         filled_squares = [(r, c) for r in range(9) for c in range(9)]
         random.shuffle(filled_squares)
 
-        for r, c in filled_squares:
+        for i in range(len(filled_squares)):
+            r, c = filled_squares[i]
+
             # erase the number
             val = sudoku[r][c]
             sudoku[r][c] = 0
@@ -53,9 +56,11 @@ class SudokuGenerator:
             if len(self._solve_sudoku(sudoku, sol_limit=2)) == 1:
                 continue
 
-            # if it doesn't then replace the number and finish
+            # if it doesn't then replace the number
             sudoku[r][c] = val
             break
+            # if i >= 64:
+            #     break
 
         return sudoku
 
@@ -95,3 +100,11 @@ class SudokuGenerator:
 
         dfs()
         return solutions
+
+
+# generate a bunch of sudokus and store it to a file
+if __name__ == "__main__":
+    generator = SudokuGenerator()
+    starting_sudokus = [generator.generate_random_starting_sudoku() for _ in range(5)]
+    with open("starting_sudokus.txt", "a") as file:
+        json.dump(starting_sudokus, file)
