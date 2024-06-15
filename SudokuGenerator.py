@@ -104,8 +104,9 @@ class SudokuGenerator:
 
 # generate a bunch of sudokus and store it to a file
 if __name__ == "__main__":
+    NUM_SUDOKUS = 10
     generator = SudokuGenerator()
-    starting_sudokus = [generator.generate_random_starting_sudoku() for _ in range(5)]
+    starting_sudokus = [generator.generate_random_starting_sudoku() for _ in range(NUM_SUDOKUS)]
     with open("starting_sudokus.txt", "a") as file:
         for sudoku in starting_sudokus:
             json.dump(sudoku, file)

@@ -28,5 +28,19 @@ Things to talk about in the next article:
       - mean empty squares: 53.6
       - stdev empty squares: 1.4298407059684815
   - change: don't return sudoku  immediately when it removes a square which results in duplicate solution; instead just go on to the next square
-  - theres a tradeoff between harder sudoku and generated sudokus
-  - 
+  - theres a tradeoff between harder sudoku and time generating sudokus
+  one example of a sudoku generated with first algorithm:
+  - 2 0 8 4 7 3 6 9 1
+    0 7 9 6 0 1 4 2 5
+    1 6 4 5 2 9 7 8 3
+    4 1 3 8 5 2 9 7 6
+    8 9 5 7 1 6 2 0 0
+    6 2 7 9 3 4 0 1 8
+    9 3 1 2 6 5 0 4 7
+    7 4 6 3 9 0 1 5 2
+    5 0 2 0 0 7 0 6 9
+    (almost all non-zero)
+2. Results:
+ - solved 19 hard (newer alg) 3x3 sudokus:
+   - mean : 0.13218548423365542
+   - stdev: 0.18745729546020534

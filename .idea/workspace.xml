@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="starting_sudokus.txt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="change generator so it's 1 sudoku per line">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuGenerator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuRunner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/starting_sudokus.txt" beforeDir="false" afterPath="$PROJECT_DIR$/starting_sudokus.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718442891208</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="change generator so it's 1 sudoku per line">
+      <option name="closed" value="true" />
+      <created>1718445780677</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718445780677</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -133,6 +138,7 @@
     <MESSAGE value="added generation script to store sudokus into a file" />
     <MESSAGE value="added notes on new sudoku generation method into readme" />
     <MESSAGE value="starting_sudokus.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting_sudokus.txt" />
+    <MESSAGE value="change generator so it's 1 sudoku per line" />
+    <option name="LAST_COMMIT_MESSAGE" value="change generator so it's 1 sudoku per line" />
   </component>
 </project>

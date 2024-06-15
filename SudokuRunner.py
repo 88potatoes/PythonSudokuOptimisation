@@ -1,78 +1,61 @@
+import json
+import time
 from pprint import pprint
+
+import numpy as np
+
 from SudokuChecker import SudokuChecker
 from SudokuGenerator import SudokuGenerator
+from SudokuHelpers import get_n_empty_squares, print_mean_and_stdev, print_sudoku
 from SudokuSolver import SudokuSolver
 from SudokuStrategies import basic_backtracking
-import time
-
-SUDOKU1 = [
-    [5, 3, 4, 6, 7, 8, 9, 0, 2],
-    [6, 7, 2, 1, 9, 5, 3, 4, 8],
-    [1, 9, 8, 3, 4, 2, 5, 6, 7],
-    [8, 5, 9, 7, 6, 1, 4, 2, 3],
-    [4, 2, 6, 8, 5, 3, 7, 9, 1],
-    [7, 1, 3, 9, 2, 4, 8, 5, 6],
-    [9, 6, 1, 5, 3, 7, 2, 8, 4],
-    [2, 8, 7, 4, 1, 9, 6, 3, 5],
-    [3, 4, 5, 2, 8, 6, 1, 7, 9]
-]
-
-SUDOKU2 = [
-    [8, 0, 7, 0, 0, 4, 3, 0, 0],
-    [9, 6, 0, 0, 2, 7, 0, 0, 8],
-    [3, 0, 1, 6, 8, 0, 7, 5, 0],
-    [5, 9, 0, 0, 0, 0, 2, 0, 1],
-    [0, 7, 0, 0, 1, 3, 6, 8, 9],
-    [6, 1, 8, 0, 0, 0, 4, 3, 0],
-    [0, 0, 6, 0, 0, 0, 9, 0, 0],
-    [0, 5, 4, 0, 9, 6, 0, 2, 3],
-    [2, 0, 9, 0, 0, 1, 5, 0, 0]
-]
-
-SUDOKU3 = [
-    [0, 0, 2, 1, 5, 3, 0, 0, 4],
-    [0, 0, 1, 0, 0, 4, 2, 0, 6],
-    [7, 4, 6, 2, 0, 0, 3, 0, 5],
-    [2, 0, 4, 0, 0, 1, 0, 5, 3],
-    [0, 0, 3, 0, 0, 0, 0, 0, 0],
-    [6, 5, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 2, 5, 0, 3, 0],
-    [0, 2, 5, 0, 3, 0, 1, 0, 7],
-    [0, 0, 0, 0, 0, 0, 0, 2, 0]
-]
 
 if __name__ == "__main__":
     checker = SudokuChecker()
     generator = SudokuGenerator()
     solver = SudokuSolver(basic_backtracking)
 
-    # get a problem sudoku
-    # problem_sudoku = generator.generate_random_starting_sudoku()
-    # pprint(problem_sudoku)
-    # print("Problem:")
-    problems = generator.gen_many_starting_sudokus(100)
-    # zeros = 0
-    # for r in range(9):
-    #     for c in range(9):
-    #         if sudoku[r][c] == 0:
-    #             zeros += 1
-    # print(zeros)
+    generator_times = []
+    problems = []
+    NUM_PROBLEMS = 100
+    SUDOKUS_FROM_FILE = True
 
-    # get a solution to the sudoku
-    start_time = time.time()
-    solutions = solver.solve_many_sudokus(problems)
-    end_time = time.time()
-    # print("Solution")
-    # pprint(solved_sudoku)
+    if SUDOKUS_FROM_FILE:
+        # get sudokus from file
+        with open("starting_sudokus.txt", "r") as sudoku_file:
+            for line in sudoku_file:
+                problems.append(json.loads(line))
+    else:
+        # generate new sudokus
+        # TODO maybe i can do one of the the '@' thingos to keep track of time
+        for i in range(NUM_PROBLEMS):
+            startgen = time.time()
+            problem = generator.gen_many_starting_sudokus(1)
+            endgen = time.time()
+            generator_times.append(endgen - startgen)
+            problems.append(problem[0])
 
-    # verify the sudoku is a solution
-    # verified, status = checker.verify_solution(problem_sudoku, solved_sudoku)
+        print_mean_and_stdev("gentimes", generator_times)
+
+        zeroes = [get_n_empty_squares(p) for p in problems]
+        print_mean_and_stdev("empty squares", zeroes)
+
+    # time the solutions to solving the sudokus
+    solutions = []
+    solve_times = []
+    for problem in problems:
+        start_time = time.time()
+        solution = solver.solve_sudoku(problem)
+        end_time = time.time()
+
+        solutions.append(solution)
+        solve_times.append(end_time - start_time)
+
     results = checker.verify_many_solutions(problems, solutions)
 
     for verified, msg in results:
         if not verified:
             print(msg)
-    print(f"Time elapsed: {end_time - start_time}s")
-
+    print_mean_and_stdev("solve time", solve_times)
     
         

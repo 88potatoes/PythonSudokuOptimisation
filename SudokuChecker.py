@@ -39,7 +39,7 @@ class SudokuChecker:
 
         return True, ""
 
-    def sudoku_state_is_valid(sudoku: list[list[int]]) -> bool:
+    def sudoku_state_is_valid(self, sudoku: list[list[int]]) -> bool:
         for r in range(9):
             for c in range(9):
                 if sudoku[r][c] == 0:
