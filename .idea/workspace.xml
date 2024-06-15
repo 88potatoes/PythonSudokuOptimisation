@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="change generator so it's 1 sudoku per line">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="timed the first set of sudokus">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuHelpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuHelpers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuRunner.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -14,6 +16,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/multisudoku" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -31,8 +38,9 @@
     "Python.SudokuGenerator.executor": "Run",
     "Python.SudokuHelpers.executor": "Run",
     "Python.SudokuRunner.executor": "Run",
+    "Python.SudokuStrategies.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/multisudoku",
+    "git-widget-placeholder": "feature/resizablesudoku",
     "last_opened_file_path": "/Users/ericlang/Documents/codestuff/pysudoku",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
@@ -125,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718445780677</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="timed the first set of sudokus">
+      <option name="closed" value="true" />
+      <created>1718446727180</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1718446727180</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -139,6 +155,7 @@
     <MESSAGE value="added notes on new sudoku generation method into readme" />
     <MESSAGE value="starting_sudokus.txt" />
     <MESSAGE value="change generator so it's 1 sudoku per line" />
-    <option name="LAST_COMMIT_MESSAGE" value="change generator so it's 1 sudoku per line" />
+    <MESSAGE value="timed the first set of sudokus" />
+    <option name="LAST_COMMIT_MESSAGE" value="timed the first set of sudokus" />
   </component>
 </project>

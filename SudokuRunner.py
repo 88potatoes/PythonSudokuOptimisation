@@ -1,3 +1,4 @@
+import copy
 import json
 import time
 from pprint import pprint
@@ -6,19 +7,18 @@ import numpy as np
 
 from SudokuChecker import SudokuChecker
 from SudokuGenerator import SudokuGenerator
-from SudokuHelpers import get_n_empty_squares, print_mean_and_stdev, print_sudoku
+from SudokuHelpers import get_n_empty_squares, print_array_stats, print_sudoku, Timing, get_n_filled_squares
 from SudokuSolver import SudokuSolver
 from SudokuStrategies import basic_backtracking
 
 if __name__ == "__main__":
     checker = SudokuChecker()
-    generator = SudokuGenerator()
+    generator = SudokuGenerator(size=3)
     solver = SudokuSolver(basic_backtracking)
 
-    generator_times = []
     problems = []
-    NUM_PROBLEMS = 100
-    SUDOKUS_FROM_FILE = True
+    NUM_PROBLEMS = 1
+    SUDOKUS_FROM_FILE = False
 
     if SUDOKUS_FROM_FILE:
         # get sudokus from file
@@ -27,35 +27,30 @@ if __name__ == "__main__":
                 problems.append(json.loads(line))
     else:
         # generate new sudokus
-        # TODO maybe i can do one of the the '@' thingos to keep track of time
         for i in range(NUM_PROBLEMS):
-            startgen = time.time()
-            problem = generator.gen_many_starting_sudokus(1)
-            endgen = time.time()
-            generator_times.append(endgen - startgen)
-            problems.append(problem[0])
+            generator_times = []
+            with Timing(add_to=generator_times):
+                problem = generator.generate_random_starting_sudoku()
+            problems.append(copy.deepcopy(problem))
 
-        print_mean_and_stdev("gentimes", generator_times)
+            print_array_stats("gentimes", generator_times)
 
-        zeroes = [get_n_empty_squares(p) for p in problems]
-        print_mean_and_stdev("empty squares", zeroes)
+        filled_squares = [get_n_filled_squares(p) for p in problems]
+        print_array_stats("empty squares", filled_squares)
 
+    pprint(problems)
     # time the solutions to solving the sudokus
     solutions = []
     solve_times = []
     for problem in problems:
-        start_time = time.time()
-        solution = solver.solve_sudoku(problem)
-        end_time = time.time()
-
+        with Timing(add_to=solve_times):
+            print_sudoku(problem)
+            solution = solver.solve_sudoku(problem)
         solutions.append(solution)
-        solve_times.append(end_time - start_time)
 
     results = checker.verify_many_solutions(problems, solutions)
 
     for verified, msg in results:
         if not verified:
             print(msg)
-    print_mean_and_stdev("solve time", solve_times)
-    
-        
+    print_array_stats("solve time", solve_times)
