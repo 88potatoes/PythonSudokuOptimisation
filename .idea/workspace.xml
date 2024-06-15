@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="reconfiguring so everything works in pycharm">
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="starting_sudokus.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuChecker.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuChecker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuGenerator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuRunner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/starting_sudokus.txt" beforeDir="false" afterPath="$PROJECT_DIR$/starting_sudokus.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +31,8 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.SudokuGenerator.executor": "Run",
+    "Python.SudokuHelpers.executor": "Run",
     "Python.SudokuRunner.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/multisudoku",
@@ -69,12 +72,67 @@
       <option name="project" value="LOCAL" />
       <updated>1718363940039</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="multiple sudokus work in python">
+      <option name="closed" value="true" />
+      <created>1718364773506</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718364773507</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add get_n_empty_squares">
+      <option name="closed" value="true" />
+      <created>1718435197390</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1718435197390</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added print_mean_and_stdev, and a coloured print_sudokou with ansi">
+      <option name="closed" value="true" />
+      <created>1718442811193</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718442811193</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added generation script to store sudokus into a file">
+      <option name="closed" value="true" />
+      <created>1718442855712</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718442855712</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added notes on new sudoku generation method into readme">
+      <option name="closed" value="true" />
+      <created>1718442878343</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1718442878343</updated>
+    </task>
+    <task id="LOCAL-00008" summary="starting_sudokus.txt">
+      <option name="closed" value="true" />
+      <created>1718442891208</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1718442891208</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="workspace.xml" />
     <MESSAGE value="reconfiguring so everything works in pycharm" />
-    <option name="LAST_COMMIT_MESSAGE" value="reconfiguring so everything works in pycharm" />
+    <MESSAGE value="multiple sudokus work in python" />
+    <MESSAGE value="add get_n_empty_squares" />
+    <MESSAGE value="added print_mean_and_stdev, and a coloured print_sudokou with ansi" />
+    <MESSAGE value="added print_mean_and_stdev, and a coloured print_sudoku with ansi" />
+    <MESSAGE value="added generation script to store sudokus into a file" />
+    <MESSAGE value="added notes on new sudoku generation method into readme" />
+    <MESSAGE value="starting_sudokus.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="starting_sudokus.txt" />
   </component>
 </project>

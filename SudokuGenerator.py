@@ -58,9 +58,9 @@ class SudokuGenerator:
 
             # if it doesn't then replace the number
             sudoku[r][c] = val
-            break
-            # if i >= 64:
-            #     break
+            # break
+            if i >= 64:
+                break
 
         return sudoku
 
@@ -107,4 +107,6 @@ if __name__ == "__main__":
     generator = SudokuGenerator()
     starting_sudokus = [generator.generate_random_starting_sudoku() for _ in range(5)]
     with open("starting_sudokus.txt", "a") as file:
-        json.dump(starting_sudokus, file)
+        for sudoku in starting_sudokus:
+            json.dump(sudoku, file)
+            file.write('\n')
