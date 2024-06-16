@@ -2,7 +2,7 @@ import copy
 import random
 from collections import deque
 
-from SudokuHelpers import number_is_valid
+from SudokuHelpers import number_is_valid, print_sudoku
 
 
 def basic_backtracking(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | None:
@@ -294,31 +294,31 @@ def constraint1(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | Non
     """
 
     sudoku_copy = copy.deepcopy(sudoku)
+    # print_sudoku(sudoku_copy)
 
     # each square needs to store its possible values
     domains = [[set(x for x in range(1, 10)) for _ in range(9)] for _ in range(9)]
 
-
     def dfs(doms: list[list[set[int]]]):
         # running ac3
         new_doms = ac3(doms, sudoku_copy)
+
         if new_doms is None:
             return False
 
-        all_filled = True
         for r in range(9):
             for c in range(9):
+                if sudoku_copy[r][c] != 0:
+                    continue
                 for val in new_doms[r][c]:
-                    all_filled = False
                     sudoku_copy[r][c] = val
 
                     if dfs(new_doms):
                         return True
 
                     sudoku_copy[r][c] = 0
-
-        if all_filled:
-            return True
+                return False
+        return True
 
     dfs(domains)
 
@@ -354,8 +354,7 @@ def ac3(domains: list[list[set[int]]], sudoku: list[list[int]], size: int = 3):
     # apply unary constraints
     filled_squares = [(r, c) for r in range(9) for c in range(9) if sudoku[r][c] != 0]
     for r, c in filled_squares:
-        if sudoku[r][c] in domain_copy[r][c]:
-            domain_copy[r][c].remove(sudoku[r][c])
+        domain_copy[r][c] = {sudoku[r][c]}
         for a, b in get_connected_arcs(r, c):
             r2, c2 = b
             if sudoku[r][c] in domain_copy[r2][c2]:
@@ -368,7 +367,7 @@ def ac3(domains: list[list[set[int]]], sudoku: list[list[int]], size: int = 3):
         r1, c1 = a
         r2, c2 = b
         if revise(r1, c1, r2, c2):
-            if len(domain_copy[r1][c2]) == 0:
+            if len(domain_copy[r1][c1]) == 0:
                 return None
             else:
                 queue.extend(get_connected_arcs(r1, c1))

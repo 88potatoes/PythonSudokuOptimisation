@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="added caching instead of making external calls">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuRunner.py" afterDir="false" />
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="trying csp constraint1">
       <change beforePath="$PROJECT_DIR$/SudokuStrategies.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuStrategies.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +15,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/multisudoku" />
+        <entry key="$PROJECT_DIR$" value="feature/resizablesudoku" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,7 +38,7 @@
     "Python.SudokuRunner.executor": "Run",
     "Python.SudokuStrategies.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/resizablesudoku",
+    "git-widget-placeholder": "feature/csp",
     "last_opened_file_path": "/Users/ericlang/Documents/codestuff/pysudoku",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
@@ -219,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718522325237</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="trying csp constraint1">
+      <option name="closed" value="true" />
+      <created>1718540993761</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1718540993761</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -242,6 +247,7 @@
     <MESSAGE value="add opt1, opt2 and started constraint1 - also added sudokuRunner options" />
     <MESSAGE value="information documents update" />
     <MESSAGE value="added caching instead of making external calls" />
-    <option name="LAST_COMMIT_MESSAGE" value="added caching instead of making external calls" />
+    <MESSAGE value="trying csp constraint1" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying csp constraint1" />
   </component>
 </project>
