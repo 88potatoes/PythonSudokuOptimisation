@@ -44,3 +44,73 @@ Things to talk about in the next article:
  - solved 19 hard (newer alg) 3x3 sudokus:
    - mean : 0.13218548423365542
    - stdev: 0.18745729546020534
+3. 4x4
+ - estimated time:
+ - 3x3:
+   - crude: 9^81 = 1.9662705e+77
+   - not checking everything: (9!)*9 = 3265920
+   - took: 0.13218548423365542s
+ - 4x4:
+   - crude: 16^256 = infinity
+   - ![img.png](images/img.png)
+   - optimised: 16!*16 = 3.3476464e+14
+   - estimated time: 3.3476464e+14 / 3265920 = 102502400; 102502400 * 0.13218548423365542s = 13549279.744s = 225821.329067 min = 3763.68881778 hrs = 156.8 days - about half a year
+   - hell nah i ain't running that
+ 
+5. Gen stats:
+    1. sudoku stats - 10 sudokus
+        mean : 24.9
+        stdev: 0.8755950357709131
+        min: 23
+        max: 26
+    timing
+        mean : 29.562716817855836
+        stdev: 50.0318000015308
+        min: 0.7941467761993408
+        max: 162.52223896980286
+   2. timing - 2 sudokus
+      mean : 17.30071496963501
+      stdev: 19.279308778665577
+      min: 3.668184995651245
+      max: 30.933244943618774
+   sudoku stats
+      mean : 24.5
+      stdev: 0.7071067811865476
+      min: 24
+      max: 25
+
+6. Solve times
+   1. solve time - 17 sudokus
+   mean : 1.4534573835485123
+   stdev: 2.345127496684347
+   min: 0.016819000244140625
+   max: 8.869170904159546
+   sudoku stats
+      mean : 24.58823529411765
+      stdev: 0.8702602720890289
+      min: 23
+      max: 26
+   2. (same sudokus as above)
+      solve time
+      mean : 1.4419501108281754
+      stdev: 2.340501475481897
+      min: 0.01682901382446289
+      max: 8.835848808288574
+   3. (same sudokus as above - strategy opt1_backtracking)
+      solve time
+      mean : 1.2553241813884062
+      stdev: 2.039558410704091
+      min: 0.014966011047363281
+      max: 7.746784210205078
+   4. (same sudokus as above - strategy opt2_backtracking)
+      solve time
+      mean : 0.7722078631905949
+      stdev: 1.152763555029625
+      min: 0.0034961700439453125
+      max: 3.7731308937072754
+   5. (same sudokus as above - strategy opt3_backtracking)
+      solve time
+      mean : 1.3678127737606274
+      stdev: 2.002610364594994
+      min: 0.0058748722076416016
+      max: 5.951871871948242
