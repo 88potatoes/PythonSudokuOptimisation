@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="refactor to make generation script more versatile">
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="information documents update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuChecker.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuChecker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuRunner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuStrategies.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuStrategies.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/starting_sudokus.txt" beforeDir="false" afterPath="$PROJECT_DIR$/starting_sudokus.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +36,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.SudokuChecker.executor": "Run",
     "Python.SudokuGenerator.executor": "Run",
     "Python.SudokuHelpers.executor": "Run",
     "Python.SudokuRunner.executor": "Run",
@@ -187,7 +188,31 @@
       <option name="project" value="LOCAL" />
       <updated>1718515623679</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add opt1, opt2 and started constraint1 - also added sudokuRunner options">
+      <option name="closed" value="true" />
+      <created>1718519907352</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1718519907352</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add opt1, opt2 and started constraint1 - also added sudokuRunner options">
+      <option name="closed" value="true" />
+      <created>1718519910546</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1718519910546</updated>
+    </task>
+    <task id="LOCAL-00018" summary="information documents update">
+      <option name="closed" value="true" />
+      <created>1718519933455</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1718519933455</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -207,6 +232,8 @@
     <MESSAGE value="calculator image" />
     <MESSAGE value="number_is_valid accommodates different sudokus sizes + print sudoku stats" />
     <MESSAGE value="refactor to make generation script more versatile" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor to make generation script more versatile" />
+    <MESSAGE value="add opt1, opt2 and started constraint1 - also added sudokuRunner options" />
+    <MESSAGE value="information documents update" />
+    <option name="LAST_COMMIT_MESSAGE" value="information documents update" />
   </component>
 </project>

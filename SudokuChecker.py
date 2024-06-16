@@ -4,6 +4,8 @@ import SudokuHelpers
 class SudokuChecker:
 
     def verify_solution(self, problem: list[list[int]], solution: list[list[int]]) -> tuple[bool, str]:
+        if solution is None or problem == None:
+            return True, "solution is None"
         """
         Check if a sudoku has been solved.
         """

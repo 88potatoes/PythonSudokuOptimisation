@@ -6,7 +6,8 @@ from SudokuGenerator import SudokuGenerator
 from SudokuHelpers import print_array_stats, print_sudoku, Timing, get_n_filled_squares, \
     print_sudoku_stats
 from SudokuSolver import SudokuSolver
-from SudokuStrategies import basic_backtracking, opt1_backtracking, opt2_backtracking, opt3_backtracking
+from SudokuStrategies import basic_backtracking, opt1_backtracking, opt2_backtracking, opt3_backtracking, constraint1, \
+    opt4_backtracking, opt5_backtracking
 
 if __name__ == "__main__":
     SUDOKU_SIZE = 3
@@ -17,10 +18,11 @@ if __name__ == "__main__":
     SHOW_VERIFICATIONS = True
     SHOW_SOLVE_TIMES = True
     SHOW_PROBLEMS_AND_SOLUTIONS = False
+    SUDOKU_STRATEGY = opt5_backtracking
 
     checker = SudokuChecker()
     generator = SudokuGenerator(size=SUDOKU_SIZE)
-    solver = SudokuSolver(opt3_backtracking)
+    solver = SudokuSolver(SUDOKU_STRATEGY)
     problems = []
 
     if SUDOKUS_FROM_FILE:

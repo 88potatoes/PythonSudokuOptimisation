@@ -114,3 +114,15 @@ Things to talk about in the next article:
       stdev: 2.002610364594994
       min: 0.0058748722076416016
       max: 5.951871871948242
+   6. (same sudokus as above - strategy opt4 backtracking)
+      solve time
+      mean : 0.32778655781465416
+      stdev: 0.5048844873256506
+      min: 0.0005040168762207031
+      max: 2.0134997367858887
+   7. (same sudokus as above - strategy opt5 backtracking)
+      solve time
+      mean : 0.1870243268854478
+      stdev: 0.3008836896620631
+      min: 0.0022962093353271484
+      max: 1.1460742950439453
