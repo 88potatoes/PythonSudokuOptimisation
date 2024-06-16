@@ -1,6 +1,7 @@
 import copy
 import random
 from collections import deque
+import functools
 
 from SudokuHelpers import number_is_valid, print_sudoku
 
@@ -290,7 +291,7 @@ def opt5_backtracking(sudoku: list[list[int]], size: int = 3) -> list[list[int]]
 def constraint1(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | None:
     """
     Use constraint programming.
-    Backtracking with minimum remaining values heuristic
+    Uses AC3 to limit domain
     """
 
     sudoku_copy = copy.deepcopy(sudoku)
@@ -374,6 +375,7 @@ def ac3(domains: list[list[set[int]]], sudoku: list[list[int]], size: int = 3):
     return domain_copy
 
 
+@functools.cache
 def get_all_sudoku_arcs():
     res = []
     for r in range(9):
@@ -398,6 +400,7 @@ def get_all_sudoku_arcs():
     return res
 
 
+@functools.cache
 def get_connected_arcs(r: int, c: int, size: int = 3):
     res = []
     # same row and column
@@ -416,3 +419,85 @@ def get_connected_arcs(r: int, c: int, size: int = 3):
 
             res.append(((r, c), (3 * start_r + i, 3 * start_c + j)))
     return res
+
+
+def constraint2(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | None:
+    """
+    Use constraint programming.
+    Uses AC3 to limit domain - but trying to optimise AC3 algorithm a bit more
+    """
+
+    # filled_squares = [(r, c) for r in range(9) for c in range(9) if sudoku[r][c] != 0]
+    domains = [[set(x for x in range(1, 10)) for _ in range(9)] for _ in range(9)]
+    sudoku_copy = copy.deepcopy(sudoku)
+
+    # applying unary constraints
+    domains = ac3(domains, sudoku_copy)
+
+    def dfs(doms: list[list[set[int]]]) -> bool:
+        for r in range(9):
+            for c in range(9):
+                if sudoku_copy[r][c] != 0:
+                    continue
+                for val in doms[r][c]:
+                    sudoku_copy[r][c] = val
+
+                    new_doms = ac3(doms, sudoku_copy)
+                    if new_doms is None:
+                        sudoku_copy[r][c] = 0
+                        continue
+
+                    if dfs(new_doms):
+                        return True
+
+                    sudoku_copy[r][c] = 0
+                return False
+        return True
+
+    dfs(domains)
+    return sudoku_copy
+
+
+def ac3_v2(domains: list[list[set[int]]], r, c, v) -> list[list[set[int]]] | None:
+    """
+    Arc consistency to be run immediately after placing a square.
+    """
+
+    new_domain = copy.deepcopy(domains)
+
+    def revise(row1, col1, row2, col2):
+        changed = False
+        to_remove = []
+        for val1 in new_domain[row1][col1]:
+            val_valid = False
+            for val2 in new_domain[row2][col2]:
+                if val1 != val2:
+                    val_valid = True
+                    break
+
+            if not val_valid:
+                to_remove.append(val1)
+                changed = True
+
+        for val in to_remove:
+            new_domain[row1][col1].remove(val)
+
+        return changed
+
+    new_domain[r][c] = {v}
+    for a, b in get_connected_arcs(r, c):
+        r2, c2 = b
+        if v in new_domain[r2][c2]:
+            new_domain[r2][c2].remove(v)
+
+    queue = deque(get_connected_arcs(r, c))
+    while queue:
+        a, b = queue.popleft()
+        if revise(a[0], a[1], b[0], b[1]):
+            # something changed
+            if len(new_domain[a[0]][a[1]]) == 0:
+                return None
+            else:
+                queue.extend(get_connected_arcs(a[0], a[1]))
+
+    return new_domain

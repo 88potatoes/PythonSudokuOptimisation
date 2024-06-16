@@ -132,10 +132,21 @@ Things to talk about in the next article:
       stdev: 0.23963808119395993
       min: 0.06774783134460449
       max: 1.0454318523406982
+   9. (same sudokus as above - strategy constraint1 w functools cache on generating arcs)
+      solve time
+      mean : 0.14598320512210622
+      stdev: 0.15829271531627834
+      min: 0.04480791091918945
+      max: 0.6900060176849365
+   10. (same sudokus as above - strategy constraint2)
+       solve time
+       mean : 0.12935679099139044
+       stdev: 0.1423737120913063
+       min: 0.038826942443847656
+       max: 0.6148250102996826
 7. Standard AC3
  - How many arcs in a 3x3 sudoku?
  - each square has 8 + 6 + 6 = 20 arcs
  - 81 * 20 = 1620 arcs total
  - Initial run: Ran for 4hrs 25 min and didn't solve (it was bugged)
  - Next run is run 8 from above section - really quite good
-8. 
