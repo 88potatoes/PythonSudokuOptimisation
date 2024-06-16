@@ -2,7 +2,7 @@ import copy
 import json
 import random
 import SudokuHelpers
-from SudokuHelpers import number_is_valid
+from SudokuHelpers import number_is_valid, print_sudoku, Timing, print_sudoku_stats, print_array_stats
 from SudokuSolver import SudokuSolver
 
 
@@ -64,7 +64,7 @@ class SudokuGenerator:
             # if it doesn't then replace the number
             solved_sudoku[r][c] = val
             # break
-            if n_filled <= 17:
+            if (self.size == 3 and n_filled <= 17) or (self.size == 4 and n_filled <= 55):
                 break
 
         return solved_sudoku
@@ -110,10 +110,30 @@ class SudokuGenerator:
 
 # generate a bunch of sudokus and store it to a file
 if __name__ == "__main__":
-    NUM_SUDOKUS = 10
+    NUM_SUDOKUS = 2
+    SHOW_TIMING = True
+    SHOW_SUDOKU_STATS = True
+    SUDOKU_FILE = "starting_sudokus.txt"
+
     generator = SudokuGenerator()
-    starting_sudokus = [generator.generate_random_starting_sudoku() for _ in range(NUM_SUDOKUS)]
-    with open("starting_sudokus.txt", "a") as file:
+    starting_sudokus = []
+    timings = []
+
+    # generating the sudokus and keeping track of time
+    for i in range(NUM_SUDOKUS):
+        with Timing(add_to=timings):
+            problem = generator.generate_random_starting_sudoku()
+        starting_sudokus.append(problem)
+
+    # printing generation information
+    if SHOW_TIMING:
+        print_array_stats(nums=timings, label="timing")
+
+    if SHOW_SUDOKU_STATS:
+        print_sudoku_stats(sudoku_list=starting_sudokus)
+
+    # writing the sudokus to the file
+    with open(SUDOKU_FILE, "a") as file:
         for sudoku in starting_sudokus:
             json.dump(sudoku, file)
             file.write('\n')
