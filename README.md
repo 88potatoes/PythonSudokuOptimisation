@@ -144,6 +144,18 @@ Things to talk about in the next article:
        stdev: 0.1423737120913063
        min: 0.038826942443847656
        max: 0.6148250102996826
+   11. same sudokus as above - strategy constraint3
+       solve time
+       mean : 0.1298680024988511
+       stdev: 0.14318545897717835
+       min: 0.03872179985046387
+       max: 0.6147561073303223
+   12. same sudokus - strategy constraint4
+       solve time
+       mean : 0.13104797812069163
+       stdev: 0.14200930780334975
+       min: 0.041532039642333984
+       max: 0.6081840991973877
 7. Standard AC3
  - How many arcs in a 3x3 sudoku?
  - each square has 8 + 6 + 6 = 20 arcs

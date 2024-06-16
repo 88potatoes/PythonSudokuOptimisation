@@ -424,7 +424,7 @@ def get_connected_arcs(r: int, c: int, size: int = 3):
 def constraint2(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | None:
     """
     Use constraint programming.
-    Uses AC3 to limit domain - but trying to optimise AC3 algorithm a bit more
+    Uses AC3 to limit domain - but trying to optimise AC3 algorithm a bit more by not doing all constraints every time
     """
 
     # filled_squares = [(r, c) for r in range(9) for c in range(9) if sudoku[r][c] != 0]
@@ -501,3 +501,126 @@ def ac3_v2(domains: list[list[set[int]]], r, c, v) -> list[list[set[int]]] | Non
                 queue.extend(get_connected_arcs(a[0], a[1]))
 
     return new_domain
+
+
+def constraint3(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | None:
+    """
+    Use constraint programming.
+    Constraint2 but don't loop through whole board - just start at where you left off.
+    Also accounts for different sizes
+    """
+
+    side_length = size ** 2
+    domains = [[set(x for x in range(1, side_length + 1)) for _ in range(side_length)] for _ in range(side_length)]
+    sudoku_copy = copy.deepcopy(sudoku)
+
+    # applying unary constraints
+    domains = ac3(domains, sudoku_copy)
+
+    def dfs(doms: list[list[set[int]]], cr, cc) -> bool:
+        for r in range(cr, side_length):
+            for c in range(cc if r == cr else 0, side_length):
+                if sudoku_copy[r][c] != 0:
+                    continue
+                for val in doms[r][c]:
+                    sudoku_copy[r][c] = val
+
+                    new_doms = ac3(doms, sudoku_copy)
+                    if new_doms is None:
+                        sudoku_copy[r][c] = 0
+                        continue
+
+                    if c == side_length - 1:
+                        if dfs(new_doms, r + 1, 0):
+                            return True
+                    else:
+                        if dfs(new_doms, r, c + 1):
+                            return True
+
+                    sudoku_copy[r][c] = 0
+                return False
+        return True
+
+    dfs(domains, 0, 0)
+    return sudoku_copy
+
+
+def ac3_v3(domains: list[list[set[int]]]) -> list[list[set[int]]] | None:
+    """
+    Arc consistency.
+    Assumes that all unary constraints have been placed and simplifies everything
+    """
+    new_domain = copy.deepcopy(domains)
+
+    def revise(row1, col1, row2, col2):
+        changed = False
+        to_remove = []
+        for val1 in new_domain[row1][col1]:
+            val_valid = False
+            for val2 in new_domain[row2][col2]:
+                if val1 != val2:
+                    val_valid = True
+                    break
+
+            if not val_valid:
+                to_remove.append(val1)
+                changed = True
+
+        for val in to_remove:
+            new_domain[row1][col1].remove(val)
+
+        return changed
+
+    queue = deque(get_all_sudoku_arcs())
+    while queue:
+        a, b = queue.popleft()
+        if revise(a[0], a[1], b[0], b[1]):
+            # something changed
+            if len(new_domain[a[0]][a[1]]) == 0:
+                return None
+            else:
+                queue.extend(get_connected_arcs(a[0], a[1]))
+
+    return new_domain
+
+
+def constraint4(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | None:
+    """
+    Use constraint programming.
+    Constraint3 but tries to optimise the initial unary constraints
+    """
+
+    side_length = size ** 2
+    sudoku_copy = copy.deepcopy(sudoku)
+    domains = [[set(x for x in range(1, side_length + 1)) if sudoku_copy[r][c] == 0 else {sudoku_copy[r][c]}
+                for c in range(side_length)] for r in range(side_length)]
+
+    # applying unary constraints
+    domains = ac3_v3(domains)
+
+    def dfs(doms: list[list[set[int]]], cr, cc) -> bool:
+        for r in range(cr, side_length):
+            for c in range(cc if r == cr else 0, side_length):
+                if sudoku_copy[r][c] != 0:
+                    continue
+                for val in doms[r][c]:
+                    sudoku_copy[r][c] = val
+
+                    new_doms = ac3(doms, sudoku_copy)
+                    if new_doms is None:
+                        sudoku_copy[r][c] = 0
+                        continue
+
+                    if c == side_length - 1:
+                        if dfs(new_doms, r + 1, 0):
+                            return True
+                    else:
+                        if dfs(new_doms, r, c + 1):
+                            return True
+
+                    sudoku_copy[r][c] = 0
+                return False
+        return True
+
+    dfs(domains, 0, 0)
+    return sudoku_copy
