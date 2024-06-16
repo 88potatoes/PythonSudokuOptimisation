@@ -624,3 +624,44 @@ def constraint4(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | Non
 
     dfs(domains, 0, 0)
     return sudoku_copy
+
+
+def constraint_mrv(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | None:
+    """
+    Use constraint programming.
+    Constraint3 but adds in MRV heuristic.
+    """
+
+    side_length = size ** 2
+    domains = [[set(x for x in range(1, side_length + 1)) for _ in range(side_length)] for _ in range(side_length)]
+    sudoku_copy = copy.deepcopy(sudoku)
+
+    # applying unary constraints
+    domains = ac3(domains, sudoku_copy)
+
+    def dfs(doms: list[list[set[int]]], cr, cc) -> bool:
+        for r in range(cr, side_length):
+            for c in range(cc if r == cr else 0, side_length):
+                if sudoku_copy[r][c] != 0:
+                    continue
+                for val in doms[r][c]:
+                    sudoku_copy[r][c] = val
+
+                    new_doms = ac3(doms, sudoku_copy)
+                    if new_doms is None:
+                        sudoku_copy[r][c] = 0
+                        continue
+
+                    if c == side_length - 1:
+                        if dfs(new_doms, r + 1, 0):
+                            return True
+                    else:
+                        if dfs(new_doms, r, c + 1):
+                            return True
+
+                    sudoku_copy[r][c] = 0
+                return False
+        return True
+
+    dfs(domains, 0, 0)
+    return sudoku_copy
