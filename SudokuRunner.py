@@ -1,56 +1,78 @@
 import copy
 import json
-import time
-from pprint import pprint
-
-import numpy as np
 
 from SudokuChecker import SudokuChecker
 from SudokuGenerator import SudokuGenerator
-from SudokuHelpers import get_n_empty_squares, print_array_stats, print_sudoku, Timing, get_n_filled_squares
+from SudokuHelpers import print_array_stats, print_sudoku, Timing, get_n_filled_squares, \
+    print_sudoku_stats
 from SudokuSolver import SudokuSolver
-from SudokuStrategies import basic_backtracking
+from SudokuStrategies import basic_backtracking, opt1_backtracking, opt2_backtracking, opt3_backtracking
 
 if __name__ == "__main__":
-    checker = SudokuChecker()
-    generator = SudokuGenerator(size=3)
-    solver = SudokuSolver(basic_backtracking)
+    SUDOKU_SIZE = 3
+    NUM_PROBLEMS_TO_GEN = 0
+    SHOW_GEN_TIMES = False
+    SUDOKUS_FROM_FILE = True
+    NUM_PROBLEMS_TO_SOLVE = 0
+    SHOW_VERIFICATIONS = True
+    SHOW_SOLVE_TIMES = True
+    SHOW_PROBLEMS_AND_SOLUTIONS = False
 
+    checker = SudokuChecker()
+    generator = SudokuGenerator(size=SUDOKU_SIZE)
+    solver = SudokuSolver(opt3_backtracking)
     problems = []
-    NUM_PROBLEMS = 1
-    SUDOKUS_FROM_FILE = False
 
     if SUDOKUS_FROM_FILE:
         # get sudokus from file
         with open("starting_sudokus.txt", "r") as sudoku_file:
             for line in sudoku_file:
                 problems.append(json.loads(line))
+
+        print_sudoku_stats(problems)
     else:
         # generate new sudokus
-        for i in range(NUM_PROBLEMS):
+        for i in range(NUM_PROBLEMS_TO_GEN):
             generator_times = []
             with Timing(add_to=generator_times):
                 problem = generator.generate_random_starting_sudoku()
             problems.append(copy.deepcopy(problem))
 
-            print_array_stats("gentimes", generator_times)
+            if SHOW_GEN_TIMES:
+                print_array_stats("gentimes", generator_times)
 
         filled_squares = [get_n_filled_squares(p) for p in problems]
         print_array_stats("empty squares", filled_squares)
 
-    pprint(problems)
-    # time the solutions to solving the sudokus
+    # time the solving the sudokus
     solutions = []
     solve_times = []
-    for problem in problems:
-        with Timing(add_to=solve_times):
-            print_sudoku(problem)
-            solution = solver.solve_sudoku(problem)
-        solutions.append(solution)
 
-    results = checker.verify_many_solutions(problems, solutions)
+    if NUM_PROBLEMS_TO_SOLVE != 0:
+        for problem in problems[:NUM_PROBLEMS_TO_SOLVE]:
+            with Timing(add_to=solve_times):
+                solution = solver.solve_sudoku(problem)
+            solutions.append(solution)
+    else:
+        for problem in problems:
+            with Timing(add_to=solve_times):
+                solution = solver.solve_sudoku(problem)
+            solutions.append(solution)
 
-    for verified, msg in results:
-        if not verified:
-            print(msg)
-    print_array_stats("solve time", solve_times)
+    if SHOW_PROBLEMS_AND_SOLUTIONS:
+        for i in range(len(solutions)):
+            print_sudoku(problems[i])
+            print_sudoku(solutions[i])
+
+    results = checker.verify_many_solutions(problems[:len(solutions)], solutions)
+
+    if SHOW_VERIFICATIONS:
+        for verified, msg in results:
+            if not verified:
+                print(msg)
+            else:
+                print("VERIFIED")
+
+    if SHOW_SOLVE_TIMES:
+        print_array_stats("solve time", solve_times)
+        pass
