@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 
-def number_is_valid(board: list[list[int]], r: int, c: int, a: int, sudoku_size=3) -> bool:
+def number_is_valid(board: list[list[int]], r: int, c: int, a: int, sudoku_size: int =3) -> bool:
     """
     Check if a particular number at a certain square is valid.
     """
@@ -14,7 +14,7 @@ def number_is_valid(board: list[list[int]], r: int, c: int, a: int, sudoku_size=
         return False
 
     # check the column
-    if a in set(board[y][c] for y in range(sudoku_size)):
+    if a in set(board[y][c] for y in range(side_length)):
         return False
 
     # check the squares
@@ -79,3 +79,11 @@ class Timing:
 
         if self.label is not None:
             print(f"{self.label} | elapsed time: {elapsed_time}s")
+
+
+def print_sudoku_stats(sudoku_list: list[list[list[int]]]) -> None:
+    filled_squares = []
+    for sudoku in sudoku_list:
+        filled_squares.append(get_n_filled_squares(sudoku))
+
+    print_array_stats(label="sudoku stats", nums=filled_squares)
