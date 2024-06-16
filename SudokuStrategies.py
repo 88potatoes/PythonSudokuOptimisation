@@ -293,15 +293,127 @@ def constraint1(sudoku: list[list[int]], size: int = 3) -> list[list[int]] | Non
     Backtracking with minimum remaining values heuristic
     """
 
-    solution = None
+    sudoku_copy = copy.deepcopy(sudoku)
 
     # each square needs to store its possible values
     domains = [[set(x for x in range(1, 10)) for _ in range(9)] for _ in range(9)]
 
-    def ac3():
-        queue = deque((r, c) for c in range(9) for r in range(9) if sudoku[r][c] != 0)
-        print(queue)
 
-    ac3()
+    def dfs(doms: list[list[set[int]]]):
+        # running ac3
+        new_doms = ac3(doms, sudoku_copy)
+        if new_doms is None:
+            return False
 
-    return solution
+        all_filled = True
+        for r in range(9):
+            for c in range(9):
+                for val in new_doms[r][c]:
+                    all_filled = False
+                    sudoku_copy[r][c] = val
+
+                    if dfs(new_doms):
+                        return True
+
+                    sudoku_copy[r][c] = 0
+
+        if all_filled:
+            return True
+
+    dfs(domains)
+
+    return sudoku_copy
+
+
+def ac3(domains: list[list[set[int]]], sudoku: list[list[int]], size: int = 3):
+    """
+    Standard AC3 algorithm.
+    Assumes unary constraints have not been applied yet.
+    """
+
+    def revise(row1, col1, row2, col2):
+        changed = False
+        to_remove = []
+        for val1 in domain_copy[row1][col1]:
+            val1_valid = False
+            for val2 in domain_copy[row2][col2]:
+                if val1 != val2:
+                    val1_valid = True
+                    break
+
+            if not val1_valid:
+                to_remove.append(val1)
+                changed = True
+
+        for val in to_remove:
+            domain_copy[row1][col1].remove(val)
+        return changed
+
+    domain_copy = copy.deepcopy(domains)
+
+    # apply unary constraints
+    filled_squares = [(r, c) for r in range(9) for c in range(9) if sudoku[r][c] != 0]
+    for r, c in filled_squares:
+        if sudoku[r][c] in domain_copy[r][c]:
+            domain_copy[r][c].remove(sudoku[r][c])
+        for a, b in get_connected_arcs(r, c):
+            r2, c2 = b
+            if sudoku[r][c] in domain_copy[r2][c2]:
+                domain_copy[r2][c2].remove(sudoku[r][c])
+
+    # go through all binary constraints
+    queue = deque(get_all_sudoku_arcs())
+    while queue:
+        a, b = queue.popleft()
+        r1, c1 = a
+        r2, c2 = b
+        if revise(r1, c1, r2, c2):
+            if len(domain_copy[r1][c2]) == 0:
+                return None
+            else:
+                queue.extend(get_connected_arcs(r1, c1))
+    return domain_copy
+
+
+def get_all_sudoku_arcs():
+    res = []
+    for r in range(9):
+        for c in range(9):
+            # for each square, get all the squares in the same row, the same column and the same box
+            # same row and column
+            for i in range(9):
+                if i != c:
+                    res.append(((r, c), (r, i)))
+                if i != r:
+                    res.append(((r, c), (i, c)))
+
+            # same box
+            start_r, start_c = r // 3, c // 3
+            for i in range(3):
+                for j in range(3):
+                    if 3 * start_r + i == r and 3 * start_c + j == c:
+                        continue
+
+                    res.append(((r, c), (3 * start_r + i, 3 * start_c + j)))
+
+    return res
+
+
+def get_connected_arcs(r: int, c: int, size: int = 3):
+    res = []
+    # same row and column
+    for i in range(9):
+        if i != c:
+            res.append(((r, c), (r, i)))
+        if i != r:
+            res.append(((r, c), (i, c)))
+
+    # same box
+    start_r, start_c = r // 3, c // 3
+    for i in range(3):
+        for j in range(3):
+            if 3 * start_r + i == r and 3 * start_c + j == c:
+                continue
+
+            res.append(((r, c), (3 * start_r + i, 3 * start_c + j)))
+    return res

@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="information documents update">
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="added caching instead of making external calls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuChecker.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuChecker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuRunner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SudokuStrategies.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuStrategies.py" afterDir="false" />
     </list>
@@ -212,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718519933455</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="added caching instead of making external calls">
+      <option name="closed" value="true" />
+      <created>1718522325237</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1718522325237</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -234,6 +241,7 @@
     <MESSAGE value="refactor to make generation script more versatile" />
     <MESSAGE value="add opt1, opt2 and started constraint1 - also added sudokuRunner options" />
     <MESSAGE value="information documents update" />
-    <option name="LAST_COMMIT_MESSAGE" value="information documents update" />
+    <MESSAGE value="added caching instead of making external calls" />
+    <option name="LAST_COMMIT_MESSAGE" value="added caching instead of making external calls" />
   </component>
 </project>

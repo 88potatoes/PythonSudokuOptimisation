@@ -126,3 +126,9 @@ Things to talk about in the next article:
       stdev: 0.3008836896620631
       min: 0.0022962093353271484
       max: 1.1460742950439453
+7. Standard AC3
+ - How many arcs in a 3x3 sudoku?
+ - each square has 8 + 6 + 6 = 20 arcs
+ - 81 * 20 = 1620 arcs total
+ - Initial run: Ran for 4hrs 25 min and didn't solve
+8. 

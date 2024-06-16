@@ -14,11 +14,11 @@ if __name__ == "__main__":
     NUM_PROBLEMS_TO_GEN = 0
     SHOW_GEN_TIMES = False
     SUDOKUS_FROM_FILE = True
-    NUM_PROBLEMS_TO_SOLVE = 0
+    NUM_PROBLEMS_TO_SOLVE = 1
     SHOW_VERIFICATIONS = True
     SHOW_SOLVE_TIMES = True
     SHOW_PROBLEMS_AND_SOLUTIONS = False
-    SUDOKU_STRATEGY = opt5_backtracking
+    SUDOKU_STRATEGY = constraint1
 
     checker = SudokuChecker()
     generator = SudokuGenerator(size=SUDOKU_SIZE)
@@ -77,4 +77,3 @@ if __name__ == "__main__":
 
     if SHOW_SOLVE_TIMES:
         print_array_stats("solve time", solve_times)
-        pass
