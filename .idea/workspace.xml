@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="constraint3 and constrain4 works and recorded results">
+    <list default="true" id="28dc30d7-3569-4bb1-b803-7638a48092cc" name="Changes" comment="kinda setup mrv">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SudokuStrategies.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuStrategies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SudokuHelpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/SudokuHelpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/starting_sudokus.txt" beforeDir="false" afterPath="$PROJECT_DIR$/starting_sudokus.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718549389978</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="kinda setup mrv">
+      <option name="closed" value="true" />
+      <created>1718551739914</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1718551739914</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -276,6 +287,7 @@
     <MESSAGE value="constraint1 works" />
     <MESSAGE value="constraint2 works and recorded results" />
     <MESSAGE value="constraint3 and constrain4 works and recorded results" />
-    <option name="LAST_COMMIT_MESSAGE" value="constraint3 and constrain4 works and recorded results" />
+    <MESSAGE value="kinda setup mrv" />
+    <option name="LAST_COMMIT_MESSAGE" value="kinda setup mrv" />
   </component>
 </project>

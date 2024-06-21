@@ -110,7 +110,7 @@ class SudokuGenerator:
 
 # generate a bunch of sudokus and store it to a file
 if __name__ == "__main__":
-    NUM_SUDOKUS = 2
+    NUM_SUDOKUS = 30
     SHOW_TIMING = True
     SHOW_SUDOKU_STATS = True
     SUDOKU_FILE = "starting_sudokus.txt"
